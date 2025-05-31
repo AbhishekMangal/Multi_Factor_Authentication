@@ -1,8 +1,56 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import profileImage from "../../assets/images/profile-picture.png";
 import abstractBackground from "../../assets/abstract-design/abstract-2.png";
 import backgroundImage from "../../assets/abstract-design/background.png";
+import { useDispatch, useSelector } from "react-redux";
+import { setUser } from "../../Features/User/userSlice";
+import { useNavigate } from "react-router";
+import userContext from "../../Context/userContext";
+
+
+
+
+const ProfileContent = () => {
+   const {user} = useSelector(state => state.user);
+   const navigate = useNavigate();
+   const dispatch = useDispatch();
+   const { otpSender } = useContext(userContext);
+   const handleLogout =  ()=>
+   {
+    localStorage.clear();
+    dispatch(setUser(''));
+   }
+   const handleVideoPassword = (e)=>
+   {
+    e.preventDefault();
+    otpSender(user.email);
+   }
+   console.log(user);
+    return (
+        <ContentContainer>
+            <AbstractImage />
+            <Title>User Profile</Title>
+            <ProfileGrid>
+                <ProfileImageContainer>
+                    <ProfileImage src={profileImage} alt="Profile" />
+                    <EditButton>Edit Profile Photo</EditButton>
+                </ProfileImageContainer>
+                <Form>
+                    <FormRow>
+                        <Input1 type="text" placeholder="First Name" readOnly value={user && user.username.split(" ")[0]} />
+                        <Input1 type="text" placeholder="Last Name" readOnly value={user && user.username.split(" ")[1]} />
+                    </FormRow>
+                    <Input type="email" placeholder="Email" readOnly value={user && user.email}/> 
+                    <Button onClick={handleVideoPassword}>Edit Video Password</Button>           
+                    <Button onClick={handleLogout}>LogOut</Button>
+                 
+                </Form>
+            </ProfileGrid>
+        </ContentContainer>
+    );
+};
+
 
 const ContentContainer = styled.div`
     background: url(${backgroundImage}) center/cover no-repeat;
@@ -69,6 +117,10 @@ const Button = styled.button`
     font-size: 14px;
     margin-top: 10px;
     width: 100%;
+    &:hover {
+    background-color: #CAFF33;
+     color: #1c1c1c;
+  }
 `;
 
 const Form = styled.form`
@@ -92,9 +144,15 @@ const Input = styled.input`
     border: 1px solid #333;
     background-color: #1a1a1a;
     color: #b3b3b3;
+    &:focus{
+    outline: none;
+    }
 `;
 const Input1 = styled(Input)`
     width:90%;
+     &:focus{
+    outline:none;
+    }
 `;
 
 
@@ -110,44 +168,12 @@ const EditButton = styled(Button)`
     font-size: 14px;
     margin-top: 10px;
     width: 70%;
-`;
-const FormButton = styled(EditButton)`
-    
-    border: 1px solid #caff33;
-    margin-top: 0;
-    width: 150px;
+    &:hover {
+    background-color: #CAFF33;
+     color: #1c1c1c;
+  }
 `;
 
 
-
-
-
-const ProfileContent = () => {
-    return (
-        <ContentContainer>
-            <AbstractImage />
-            <Title>User Profile</Title>
-            <ProfileGrid>
-                <ProfileImageContainer>
-                    <ProfileImage src={profileImage} alt="Profile" />
-                    <EditButton>Edit Profile Photo</EditButton>
-                </ProfileImageContainer>
-                <Form>
-                    <FormRow>
-                        <Input1 type="text" placeholder="First Name" />
-                        <Input1 type="text" placeholder="Last Name" />
-                    </FormRow>
-                    <Input type="email" placeholder="Email" />
-                    <Input type="password" placeholder="Password" />
-                    <Button>Edit Video Password</Button>
-                    <FormRow>
-                        <FormButton>Edit Info</FormButton>
-                        <FormButton>Save Changes</FormButton>
-                    </FormRow>
-                </Form>
-            </ProfileGrid>
-        </ContentContainer>
-    );
-};
 
 export default ProfileContent;

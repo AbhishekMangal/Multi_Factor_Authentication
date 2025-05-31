@@ -1,7 +1,36 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import logo from "../assets/icons/logo.svg"; // Import your SVG logo
 import { Link, useNavigate } from "react-router";
+import { useSelector } from "react-redux";
+
+
+const Navbar = () => {
+   
+    return (
+        <NavbarContainer>
+            <Logo src={logo} alt="YourBank Logo"/>
+            <NavLinks>
+                <StyledLink to="/" >Home</StyledLink>
+                <StyledLink to="/Careers">Careers</StyledLink>
+                <StyledLink to="/About">About</StyledLink>
+                <StyledLink to="/security">Security</StyledLink>
+            </NavLinks>
+            <div>
+                {!localStorage.getItem('authToken') || !localStorage.getItem('authToken2')?
+                <>
+                <StyledLink to="/Signup">Sign Up</StyledLink>
+                </>
+                :
+                <>
+                <StyledLink to="/Profile">Profile</StyledLink>
+                </>
+                }
+            </div>
+        </NavbarContainer>
+    );
+};
+
 
 const NavbarContainer = styled.nav`
     display: flex;
@@ -51,27 +80,5 @@ const Button = styled.button`
         border: 1px solid #CAFF33;
     }
 `;
-const Navbar = () => {
-    const navigate = useNavigate();
-    const handleLogin = async()=>
-    {
-        navigate('/Login')
-    }
-    return (
-        <NavbarContainer>
-            <Logo src={logo} alt="YourBank Logo"/>
-            <NavLinks>
-                <StyledLink to="/" >Home</StyledLink>
-                <StyledLink to="/Careers">Careers</StyledLink>
-                <StyledLink to="/About">About</StyledLink>
-                <StyledLink to="/security">Security</StyledLink>
-            </NavLinks>
-            <div>
-                <StyledLink to="/Signup">Sign Up</StyledLink>
-                <Button onClick={handleLogin}>Login</Button>
-            </div>
-        </NavbarContainer>
-    );
-};
 
 export default Navbar;

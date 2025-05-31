@@ -1,5 +1,5 @@
 // src/pages/Home.jsx
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -10,6 +10,7 @@ import FinancialJourneySection from "../components/LandingPage/FinancialJourneyS
 import ProductSection from "../components/HomePage/ProductSection";
 import Usecase from "../components/HomePage/Usecase";
 import TestimonialsSection from "../components/HomePage/Testimonial";
+import { useNavigate } from "react-router";
 
 
 
@@ -25,11 +26,22 @@ const AbstractImage = styled.div`
 `;
 
 const Home = () => {
+  const navigate = useNavigate();
+  useEffect(()=>
+{
+  if(!localStorage.getItem('authToken') )
+  {
+    navigate('/login');
+  }
+  if( !localStorage.getItem('authToken2'))
+  {
+    navigate('/videoPasswordLogin')
+  }
+})
     return (
         <>
             <br/>
-            <Navbar></Navbar>
-            <AbstractImage />
+            <Navbar/>
             <WelcomeSection></WelcomeSection>
             <ProductSection></ProductSection>
             <Usecase></Usecase>

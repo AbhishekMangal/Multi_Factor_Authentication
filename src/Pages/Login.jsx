@@ -1,14 +1,93 @@
 // src/components/ForgotPasswordContent.jsx
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import backgroundImage from "../assets/abstract-design/background.png";
 import abstractImage from "../assets/abstract-design/abstract.png";
-import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import faceImg from "../assets/icons/facebook-icon.png"
 import googleImg from "../assets/icons/Google-icon.png"
 import appleImg from "../assets/icons/apple-icon.png"
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+
+import userContext from "../Context/userContext";
+
+
+
+
+const Login = () => {
+  const navigate = useNavigate();
+  useEffect(()=>
+    {
+      if(localStorage.getItem('authToken') && localStorage.getItem('authToken2'))
+      {
+        navigate('/');
+      }
+      if(localStorage.getItem('authToken'))
+      {
+        localStorage.clear();
+      }
+    })
+  const { login } = useContext(userContext);
+
+  const [values,setValues] = useState({email: "", password: ""})
+  const handleChange = (e)=>
+  {
+    setValues({...values , [e.target.type]: e.target.value});
+  }
+  const handleLogin = ()=>
+  {
+    login(values.email, values.password)
+  }
+  const handleSignup = ()=>
+  {
+    navigate('/signup')
+  }
+
+  return (
+    <>
+      <Container className="flex flex-col">
+    <div className="mt-5 mx-auto w-[95%]">
+    <Navbar />
+    </div>
+  
+        <Box>
+          <BackgroundOverlay />
+          <AbstractOverlay />
+          <ContentWrapper>
+            <Title>LogIn</Title>
+            <Subtitle>
+            Welcome back! Please log in to access your account
+            </Subtitle>
+            <Form className="flex gap-4">
+              <Input type="email" id="email" placeholder="Enter your Email" value={values.email} onChange={handleChange} />
+              <Input type="password" id="password" placeholder="Enter your Password"  value={values.password} onChange={handleChange}/>
+            </Form>
+            <div className="btn flex flex-col items-center gap-4">
+                <Link to="/Forgot-password"><u> Forgot Password </u></Link>
+              <Button type="submit" onClick={handleLogin}>Login</Button>
+              <Button type="submit" style={{backgroundColor: "#1c1c1c", color:"white"}} onClick={handleSignup}>Signup</Button>
+              </div>
+                <div className="cont-footer flex flex-col justify-center items-center pt-2">
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width:"45%"}}>
+                        <hr style={{ flex: 1, width:"50%", border: 'none', borderTop: '1px solid #ccc' }} />
+                        <span style={{ margin: '0 10px' }}>or Continue with</span>
+                <hr style={{ flex: 1, border: 'none', borderTop: '1px solid #ccc' }} />
+                </div>
+
+                <div className="flex items-center justify-center gap-5 p-5 pb-2">
+                    <img src={googleImg} alt="" className="h-[60px]"/>
+                    <img src={faceImg} alt="" className="h-[60px]" />
+                    <img src={appleImg} alt="" className="h-[60px]" />
+                </div>
+            </div>
+          </ContentWrapper>
+        </Box>
+      </Container>
+      
+        </>
+  );
+};
+
 
 const Container = styled.div`
   display: flex;
@@ -117,51 +196,5 @@ const Button = styled.button`
     border: 1px solid #CAFF33;
   }
 `;
-
-const Login = () => {
-  return (
-    <>
-      <Container className="flex flex-col">
-    <div className="mt-5 mx-auto w-[95%]">
-    <Navbar />
-    </div>
-  
-        <Box>
-          <BackgroundOverlay />
-          <AbstractOverlay />
-          <ContentWrapper>
-            <Title>LogIn</Title>
-            <Subtitle>
-            Welcome back! Please log in to access your account
-            </Subtitle>
-            <Form className="flex gap-4">
-              <Input type="email" id="email" placeholder="Enter your Email" />
-              <Input type="email" id="email" placeholder="Enter your Password" />
-            </Form>
-            <div className="btn flex flex-col items-center gap-4">
-                <Link to="/Forgot-password"><u> Forgot Password </u></Link>
-              <Button type="submit">Login</Button>
-              <Button type="submit" style={{backgroundColor: "#1c1c1c", color:"white"}}>Signup</Button>
-              </div>
-                <div className="cont-footer flex flex-col justify-center items-center pt-2">
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width:"45%"}}>
-                        <hr style={{ flex: 1, width:"50%", border: 'none', borderTop: '1px solid #ccc' }} />
-                        <span style={{ margin: '0 10px' }}>or Continue with</span>
-                <hr style={{ flex: 1, border: 'none', borderTop: '1px solid #ccc' }} />
-                </div>
-
-                <div className="flex items-center justify-center gap-5 p-5 pb-2">
-                    <img src={googleImg} alt="" className="h-[60px]"/>
-                    <img src={faceImg} alt="" className="h-[60px]" />
-                    <img src={appleImg} alt="" className="h-[60px]" />
-                </div>
-            </div>
-          </ContentWrapper>
-        </Box>
-      </Container>
-      
-        </>
-  );
-};
 
 export default Login;

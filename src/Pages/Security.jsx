@@ -8,7 +8,7 @@ import FrequentlyAskedQuestions from "../components/SecurityPage/FrequentlyAsked
 const Security = () => {
     return (
         <>
-            
+            <br />
             <Navbar></Navbar>
             <SecurityInfo></SecurityInfo>
             <HowWeProtect></HowWeProtect>

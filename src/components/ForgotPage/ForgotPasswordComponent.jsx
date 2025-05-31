@@ -1,23 +1,70 @@
 // src/components/ForgotPasswordContent.jsx
-import React from "react";
+import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import backgroundImage from "../../assets/abstract-design/background.png";
 import abstractImage from "../../assets/abstract-design/abstract.png";
 import Navbar from "../Navbar";
+import Footer from "../Footer";
+import { useNavigate } from "react-router";
+import userContext from "../../Context/userContext";
+
+
+
+const ForgotPasswordContent = () => {
+  const navigate = useNavigate();
+  const { otpSender } = useContext(userContext);
+ const [values,setValues] = useState({email: ""})
+  const handleChange = (e)=>
+  {
+    setValues({...values , [e.target.type]: e.target.value});
+  }
+  const handleClick = (e)=>
+  {
+    e.preventDefault();
+    otpSender(values.email);
+  }
+  return (
+    <>
+    <Container className="flex flex-col">
+    <div className="mt-5 mx-auto w-[85%]">
+    <Navbar />
+    </div>
+
+        <Box>
+          <BackgroundOverlay />
+          <AbstractOverlay />
+          <ContentWrapper>
+            <Title>Reset Password</Title>
+            
+            <Form>
+              <Input type="email" id="email" placeholder="Enter your Email"  value={values.email} onChange={handleChange}/>
+             
+              <Button type="submit" onClick={handleClick}>Search Mail</Button>
+            </Form>
+          </ContentWrapper>
+        </Box>
+      <Footer/>
+      </Container>
+      </>
+  );
+};
+
 
 const Container = styled.div`
   display: flex;
   justify-content: center;
   background-color: #101010; /* overall page background */
-  height:100vh;
-`;
+  height:110vh;
+  
+  `
+  ;
 
 const Box = styled.div`
   position: relative;
   font-family: 'Lexend', sans-serif;
   width: 100%;
-  height: 300px;
-  max-width: 850px;
+  height: 350px;
+  max-width: 600px;
   padding: 1.5rem 2rem;
   border: 1px solid #262626; /* 1px stroke */
   border-radius: 8px;
@@ -81,7 +128,7 @@ const Form = styled.form`
 
 
 const Input = styled.input`
-  width: 100%;
+  width: 75%;
   font: inherit;
   max-width: 500px;
   padding: 0.75rem 0.75rem 0.75rem 1rem;
@@ -108,32 +155,4 @@ const Button = styled.button`
     border: 1px solid #CAFF33;
   }
 `;
-
-const ForgotPasswordContent = () => {
-  return (
-    <>
-    <Container className="flex flex-col">
-    <div className="mt-5 mx-auto w-[85%]">
-    <Navbar />
-    </div>
-
-        <Box>
-          <BackgroundOverlay />
-          <AbstractOverlay />
-          <ContentWrapper>
-            <Title>Forgot Password</Title>
-            <Subtitle>
-              Forgot your password ? Don’t worry, we’ll help you reset it.
-            </Subtitle>
-            <Form>
-              <Input type="email" id="email" placeholder="Enter your Email" />
-              <Button type="submit">Send Mail</Button>
-            </Form>
-          </ContentWrapper>
-        </Box>
-      </Container>
-      </>
-  );
-};
-
 export default ForgotPasswordContent;
