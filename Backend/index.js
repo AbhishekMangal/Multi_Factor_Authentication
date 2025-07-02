@@ -6,9 +6,9 @@ const port = 5000
 
 app.use(express.json({limit: '50mb'}));
 const corsOptions = {
-  origin: process.env.CLIENT_ORIGIN || "http://localhost:5000", 
+  origin: process.env.CLIENT_ORIGIN || "http://localhost:3000",
   methods: "GET,POST,PUT,DELETE",
-  credentials: true, 
+  credentials: true,
 };
 
 app.use(cors(corsOptions));
