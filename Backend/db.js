@@ -3,7 +3,7 @@ require('dotenv').config();
 
 const connectToMongo = async(username, password)=> {
     try {
-      
+      console.log(username, password)
         await mongoose.connect(
   `mongodb+srv://${username}:${password}@cluster0.sxtxgnl.mongodb.net/myDatabaseName?retryWrites=true&w=majority`
 );
