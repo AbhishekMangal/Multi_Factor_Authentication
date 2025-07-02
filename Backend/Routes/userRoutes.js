@@ -1,9 +1,9 @@
 
-const { getUserRoute } = require("../Controllers/userController");
-const { OtpSender } = require("../Controllers/userController");
-const { Otpverify } = require("../Controllers/userController");
-const { editUserDetails } = require("../Controllers/userController");
-const { Register, login } = require("../Controllers/userController");
+const { getUserRoute } = require("../Controllers/userController.js");
+const { OtpSender } = require("../Controllers/userController.js");
+const { Otpverify } = require("../Controllers/userController.js");
+const { editUserDetails } = require("../Controllers/userController.js");
+const { Register, login } = require("../Controllers/userController.js");
 const fetchUser = require("../middleWare/fetchuser");
 
 
