@@ -13,5 +13,4 @@ app.use('/api/videoPassword', require('./Routes/videoPasswordRoute'));
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
-
-connectToMongo();
+connectToMongo(process.env.Name, process.env.password);

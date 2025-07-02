@@ -3,7 +3,7 @@
 import axios from "axios";
 import { useNavigate } from "react-router";
 
-const API_BASE_URL =  'http://localhost:5000/api';
+const API_BASE_URL =  'https://multi-factor-authentication-5um0.onrender.com/api';
 
 
 const apiCall = async (endpoint, method, data = null) => {
@@ -49,7 +49,7 @@ export const verifyVideoPassword = async (passwordData) => {
 
 export const updateVideoPassword = async (newPassword) => {
   try {
-    const data = await axios.put("http://localhost:5000/api/videoPassword/update", {
+    const data = await axios.put("https://multi-factor-authentication-5um0.onrender.com/api/videoPassword/update", {
       newPassword,
       header: {
         "auth-token":localStorage.getItem('authToken'),               
