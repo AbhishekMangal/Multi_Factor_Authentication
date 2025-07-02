@@ -391,7 +391,7 @@ const VideoPasswordReset = () => {
 
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/videoPassword/create",
+        "https://multi-factor-authentication-5um0.onrender.com/api/videoPassword/create",
         { password },
         { headers: { "auth-token": localStorage.getItem("authToken") } }
       );

@@ -21,7 +21,7 @@ const UserState = (props) => {
   const login = async (email, password, videoPassword) => {
     loadingRef.current.continuousStart();
     try {
-      const { data } = await axios.post("http://localhost:5000/api/auth/login", {
+      const { data } = await axios.post("https://multi-factor-authentication-5um0.onrender.com/api/auth/login", {
         email,
         password,
         videoPassword,
@@ -46,7 +46,7 @@ const UserState = (props) => {
   const register = async (username, email, password) => {
     loadingRef.current.continuousStart();
     try {
-      const { data } = await axios.post("http://localhost:5000/api/auth/register", {
+      const { data } = await axios.post("https://multi-factor-authentication-5um0.onrender.com/api/auth/register", {
         username,
         email,
         password,
@@ -71,7 +71,7 @@ const UserState = (props) => {
   const getUser = async () => {
     loadingRef.current.continuousStart();
     try {
-      const { data } = await axios.get("http://localhost:5000/api/auth/getUser", {
+      const { data } = await axios.get("https://multi-factor-authentication-5um0.onrender.com/api/auth/getUser", {
         headers: { "auth-token": localStorage.getItem('authToken') },
       });
       dispatch(setUser(data.User));
@@ -88,7 +88,7 @@ const UserState = (props) => {
     loadingRef.current.continuousStart();
     try {
       const { data } = await axios.post(
-        "http://localhost:5000/api/auth/otp-sender",
+        "https://multi-factor-authentication-5um0.onrender.com/api/auth/otp-sender",
         { email }
       );
       if (data.success) {
@@ -109,7 +109,7 @@ const UserState = (props) => {
     loadingRef.current.continuousStart();
     try {
       const { data } = await axios.post(
-        "http://localhost:5000/api/auth/otp-verify",
+        "https://multi-factor-authentication-5um0.onrender.com/api/auth/otp-verify",
         { otp }
       );
       if (data.success) {
@@ -132,7 +132,7 @@ const UserState = (props) => {
     loadingRef.current.continuousStart();
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/videoPassword/verify",
+        "https://multi-factor-authentication-5um0.onrender.com/api/videoPassword/verify",
         { password },
         { headers: { 'auth-token': localStorage.getItem('authToken') } }
       );

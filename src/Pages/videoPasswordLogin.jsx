@@ -384,7 +384,7 @@ const VideoPasswordLogin = () => {
 
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/videoPassword/verify",
+        "https://multi-factor-authentication-5um0.onrender.com/api/videoPassword/verify",
         { password: pwd },
         { headers: { "auth-token": localStorage.getItem("authToken") } }
       );
